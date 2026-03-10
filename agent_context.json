@@ -1,0 +1,1187 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "name": "7-Zip",
+    "type": "language_project",
+    "language": "unknown",
+    "frameworks": [],
+    "total_files": 1244,
+    "analyzed_files": 41,
+    "generated_at": "2026-03-10T08:16:36.263172+00:00",
+    "source": "https://www.revibe.codes"
+  },
+  "files": {
+    "CPP/7zip/UI/Console/Main.cpp": {
+      "role": "Main application entry point",
+      "description": "This file serves as the primary entry point for the 7-Zip console application. It handles command-line argument parsing, displays usage instructions and version information, sets up the console environment, and orchestrates calls to various internal modules to perform core archive operations such as adding, deleting, extracting, listing, testing, benchmarking, and hashing files. It manages global state for output streams, codecs, and hashers, and integrates OS-specific functionalities for system information and process management.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "main (implicit entry point)",
+        "ShowMessageAndThrowException",
+        "ShowProgInfo",
+        "Global variable declarations (e.g., g_StdStream, g_Codecs)",
+        "Command-line parsing and dispatching (orchestrated)"
+      ],
+      "imports": [
+        "C/CpuArch.c",
+        "C/Sha1.c",
+        "C/Sha256.c",
+        "C/Sha512.c",
+        "C/Aes.c",
+        "C/7zCrc.c",
+        "C/7zTypes.h",
+        "CPP/Common/XzCrc64Reg.cpp",
+        "CPP/Common/Sha512Reg.cpp",
+        "CPP/Common/Sha256Reg.cpp",
+        "CPP/Common/Sha1Reg.cpp",
+        "CPP/Windows/Shell.cpp",
+        "CPP/7zip/UI/Common/ArchiveCommandLine.h",
+        "CPP/7zip/UI/Common/Bench.h",
+        "CPP/7zip/UI/Common/ExitCode.h",
+        "CPP/7zip/UI/Common/Extract.h",
+        "CPP/7zip/UI/Common/LoadCodecs.h",
+        "CPP/7zip/Common/RegisterCodec.h",
+        "CPP/7zip/UI/Console/BenchCon.h",
+        "CPP/7zip/UI/Console/ConsoleClose.h",
+        "CPP/7zip/UI/Console/ExtractCallbackConsole.h",
+        "CPP/7zip/UI/Console/HashCon.h",
+        "CPP/7zip/UI/Console/List.h",
+        "CPP/7zip/UI/Console/OpenCallbackConsole.h",
+        "CPP/7zip/UI/Console/UpdateCallbackConsole.h",
+        "C/7zVersion.h",
+        "CPP/7zip/MyVersion.h",
+        "CPP/Common/MyWindows.h",
+        "CPP/Common/MyInitGuid.h",
+        "CPP/Common/CommandLineParser.h",
+        "CPP/Common/IntToString.h",
+        "CPP/Common/MyException.h",
+        "CPP/Common/StdInStream.h",
+        "CPP/Common/StdOutStream.h",
+        "CPP/Common/StringConvert.h",
+        "CPP/Common/StringToInt.h",
+        "CPP/Common/UTFConvert.h",
+        "CPP/Windows/ErrorMsg.h",
+        "CPP/Windows/TimeUtils.h",
+        "CPP/Windows/FileDir.h",
+        "CPP/7zip/UI/Console/StdAfx.h"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C++",
+        "Windows API",
+        "POSIX API",
+        "7-Zip (internal compression/decompression framework)",
+        "Command-line Interface (CLI)"
+      ]
+    },
+    "C/LzmaLib.h": {
+      "role": "Public interface for the LZMA compression/decompression library",
+      "description": "This header file defines the public API for the LZMA compression and decompression functionalities within the 7-Zip project. It includes function declarations for `LzmaCompress` and `LzmaUncompress`, along with extensive documentation on their parameters, return codes, and details about LZMA properties and compression levels. It also specifies RAM requirements and property formats, making it essential for any component that needs to interact with the core LZMA algorithm.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "LzmaCompress",
+        "LzmaUncompress"
+      ],
+      "imports": [
+        "C/7zTypes.h"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C"
+      ]
+    },
+    "C/LzmaLib.c": {
+      "role": "LZMA Compression/Decompression Library Wrapper",
+      "description": "This file provides a simplified, public C API for LZMA compression and decompression. It acts as a wrapper around the lower-level LZMA encoder (LzmaEnc.c) and decoder (LzmaDec.c) implementations, abstracting away their complexities and exposing straightforward functions for common compression and decompression tasks. It initializes compression properties and handles memory allocation through a global allocator.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "LzmaCompress",
+        "LzmaUncompress"
+      ],
+      "imports": [
+        "C/LzmaEnc.c",
+        "C/LzmaDec.c",
+        "C/7zAlloc.c"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C"
+      ]
+    },
+    "CPP/7zip/UI/FileManager/App.h": {
+      "role": "Header for the main application class of the 7-Zip GUI File Manager",
+      "description": "This file defines the `CApp` class, which serves as the central controller for the 7-Zip graphical file manager application. It manages the application's overall state, UI elements like panels, toolbars, and images, and orchestrates user interactions such as file operations (copy, move, delete, archive), navigation, selection, and view settings. It also defines `CPanelCallbackImp` to handle callbacks from individual file panels, linking panel-specific actions back to the main application logic.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "Create",
+        "Read",
+        "Save",
+        "ReleaseApp",
+        "SetFocusedPanel",
+        "OnCopy",
+        "Delete",
+        "AddToArchive",
+        "ExtractArchives",
+        "TestArchives",
+        "RefreshTitle",
+        "ReloadToolbars",
+        "SaveToolbarChanges",
+        "ChangeFlatMode",
+        "Change_AutoRefresh_Mode",
+        "SetTimestampLevel"
+      ],
+      "imports": [
+        "CPP/Windows/Control/CommandBar.h",
+        "CPP/Windows/Control/ImageList.h",
+        "CPP/7zip/UI/FileManager/AppState.h",
+        "CPP/7zip/UI/FileManager/Panel.h"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C++",
+        "Windows API",
+        "COM"
+      ]
+    },
+    "CPP/7zip/UI/FileManager/App.cpp": {
+      "role": "Main application logic for the GUI File Manager",
+      "description": "This file implements the core application class `CApp` for the 7-Zip GUI File Manager. It manages the creation, configuration, and state of the file manager's user interface, including multiple panels, toolbars, list view settings, and overall application lifecycle. It handles user interactions related to file operations (copy, move, delete), view settings, and language localization.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "CApp::Create",
+        "CApp::CreateOnePanel",
+        "CApp::ReloadToolbars",
+        "CApp::SetListSettings",
+        "CApp::Save",
+        "CApp::SwitchOnOffOnePanel",
+        "CApp::ReloadLangItems",
+        "CPanelCallbackImp::OnCopy",
+        "CPanelCallbackImp::OnTab"
+      ],
+      "imports": [
+        "CPP/7zip/UI/FileManager/App.h"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C++",
+        "Windows API",
+        "WinAPI Controls"
+      ]
+    },
+    "C/LzmaEnc.c": {
+      "role": "LZMA Encoder Implementation",
+      "description": "This file contains the core implementation of the LZMA (Lempel-Ziv-Markov chain Algorithm) compression encoder. It defines the structures, parameters, and functions necessary to configure and perform LZMA compression. This includes initializing and normalizing compression properties (`CLzmaEncProps`), managing the match finder, implementing range encoding, and handling various probability models critical for LZMA's high compression ratios. It also declares internal interfaces for use by the LZMA2 encoder, suggesting its integration into a broader compression scheme.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "LzmaEncProps_Init",
+        "LzmaEncProps_Normalize",
+        "LzmaEncProps_GetDictSize",
+        "LzmaEnc_PrepareForLzma2",
+        "LzmaEnc_MemPrepare",
+        "LzmaEnc_CodeOneMemBlock",
+        "LzmaEnc_Finish",
+        "LzmaEnc_SaveState",
+        "LzmaEnc_RestoreState"
+      ],
+      "imports": [
+        "Precomp.h",
+        "C/CpuArch.c",
+        "C/LzmaEnc.h",
+        "C/LzFind.c",
+        "C/MtCoder.c"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C"
+      ]
+    },
+    "C/LzmaDec.c": {
+      "role": "LZMA Decoder Implementation",
+      "description": "This file contains the core implementation of the LZMA (Lempel-Ziv-Markov chain-Algorithm) decompression algorithm. It handles the intricate logic of range decoding, probabilistic bit modeling, and dictionary management to reconstruct the original data from an LZMA compressed stream. It includes macros for various decoding operations, state transitions, and dictionary access, forming the backbone of the 7-Zip project's ability to decompress LZMA archives.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "LzmaDec_DecodeReal_3"
+      ],
+      "imports": [
+        "C/LzmaDec.h"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C"
+      ]
+    },
+    "C/7zDec.c": {
+      "role": "7-Zip archive format decoder component",
+      "description": "This file is the central decoder for the 7z archive format. It handles the overall structure and extraction of compressed data from 7z archives. It implements various decoding algorithms, including LZMA, LZMA2, and optionally PPMd, as well as several branch filters (like BCJ2, ARM64, ARMT, RISCV, Delta, etc.). It orchestrates the decoding process by checking folder (coder) compatibility and then calling the specific decoding functions for each method.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "SzDecodePpmd",
+        "SzDecodeLzma",
+        "SzDecodeLzma2",
+        "SzDecodeCopy",
+        "CheckSupportedFolder",
+        "SzFolder_Decode2"
+      ],
+      "imports": [
+        "C/7zTypes.h",
+        "C/7zCrc.c",
+        "C/Bcj2Enc.c",
+        "C/Bra.c",
+        "C/CpuArch.c",
+        "C/LzmaDec.c",
+        "C/Lzma2Dec.c",
+        "C/Ppmd7Dec.c"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C",
+        "7-Zip format",
+        "LZMA",
+        "LZMA2",
+        "PPMd"
+      ]
+    },
+    "C/7zArcIn.c": {
+      "role": "7z archive input processor",
+      "description": "This file is responsible for reading and parsing the internal structure of 7-Zip archives. It defines data structures and functions for initializing, freeing, and extracting various metadata components from a 7z archive stream, such as pack stream information, folder definitions, file properties, and CRCs. It handles reading variable-length numbers, bit vectors, and sequential data blocks, forming the core logic for interpreting the 7z archive format upon opening.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "SzAr_Init",
+        "SzAr_Free",
+        "SzArEx_Init",
+        "SzArEx_Free",
+        "TestSignatureCandidate",
+        "ReadNumber",
+        "SzReadNumber32",
+        "ReadPackInfo",
+        "WaitId",
+        "ReadBitVector"
+      ],
+      "imports": [
+        "C/7z.h",
+        "C/7zBuf.h",
+        "C/7zCrc.h",
+        "C/CpuArch.h"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C"
+      ]
+    },
+    "C/Lzma2Enc.c": {
+      "role": "LZMA2 Encoder Implementation",
+      "description": "This file implements the LZMA2 compression algorithm encoder. LZMA2 is an improved version of LZMA, designed for better multi-threading and handling of large data streams. It manages the encoding process by dividing data into blocks, deciding between raw copy blocks and LZMA-compressed blocks, and handling dictionary resets and state initialization. It also defines and normalizes LZMA2 specific encoding properties, including block size and thread management.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "Lzma2Enc_Create",
+        "Lzma2EncProps_Init",
+        "Lzma2EncProps_Normalize",
+        "Lzma2EncInt_EncodeSubblock"
+      ],
+      "imports": [
+        "C/LzmaEnc.c",
+        "C/MtCoder.c",
+        "C/7zTypes.h",
+        "C/7zAlloc.c"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C"
+      ]
+    },
+    "C/Lzma2Dec.c": {
+      "role": "LZMA2 Decompression Algorithm Implementation",
+      "description": "This file provides the core implementation for decoding data compressed with the LZMA2 algorithm, which is a key component for handling modern 7z archives. It manages the state transitions during the decompression process, handles both LZMA-compressed and uncompressed data blocks, and interfaces with the underlying LZMA decoder for the actual LZMA decompression. It includes functions for allocating decoder resources, initializing the decoder state, and performing the actual data decoding into a dictionary buffer.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "Lzma2Dec_AllocateProbs",
+        "Lzma2Dec_Allocate",
+        "Lzma2Dec_Init",
+        "Lzma2Dec_DecodeToDic",
+        "Lzma2Dec_Parse"
+      ],
+      "imports": [
+        "C/LzmaDec.c",
+        "C/7zTypes.h"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C"
+      ]
+    },
+    "C/XzEnc.c": {
+      "role": "XZ Compression Encoder Implementation",
+      "description": "This file implements the core logic for XZ compression encoding. It handles the writing of XZ stream headers, individual block headers, block data, and the stream's index and footer. It integrates various sub-components like CRC calculation, branch prediction filters (e.g., for x86, ARM, PPC), and manages input/output streams for the encoding process, including checksum verification and size tracking.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "Xz_WriteHeader",
+        "XzBlock_WriteHeader",
+        "XzEncIndex_AddIndexRecord",
+        "XzEncIndex_WriteFooter",
+        "SeqCheckInStream_Read",
+        "SeqSizeOutStream_Write",
+        "XzBcFilterStateBase_Filter_Enc",
+        "SeqInFilter_Read"
+      ],
+      "imports": [
+        "C/7zCrc.c",
+        "C/Bra.c",
+        "C/CpuArch.c",
+        "C/MtCoder.c"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C"
+      ]
+    },
+    "C/XzDec.c": {
+      "role": "XZ Decompression Algorithm Implementation",
+      "description": "This file provides the core implementation for decoding XZ compressed streams. It includes functionality for reading variable integers, managing state for various branch conversion filters (like X86, ARM, PowerPC, SPARC, RISCV, Delta), and handling LZMA2 decompression. It integrates several low-level decoding and utility functions to reconstruct the original data from an XZ stream.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "Xz_ReadVarInt",
+        "Xz_StateCoder_Bc_SetFromMethod_Func",
+        "XzBcFilterState_Code2",
+        "Lzma2State_Code2"
+      ],
+      "imports": [
+        "C/7zCrc.c",
+        "C/7zAlloc.c",
+        "C/Bra.c",
+        "C/CpuArch.c",
+        "C/Lzma2Dec.c",
+        "C/Xz.c"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C"
+      ]
+    },
+    "C/ZstdDec.c": {
+      "role": "Zstandard Decompression Algorithm Implementation",
+      "description": "This file provides the core implementation for decompressing data encoded with the Zstandard (ZSTD) compression algorithm. It includes data structures, tables, and helper functions for handling ZSTD blocks, literal lengths, match lengths, offsets, and finite state entropy (FSE) decoding. It prepares the necessary base tables and bit manipulation routines for the decompression process.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "ZstdDec_Decode",
+        "ZstdDec_Init",
+        "ZstdDec_Construct",
+        "GetHighestSetBit_32_nonzero_big",
+        "GetHighestSetBit_32_nonzero_small"
+      ],
+      "imports": [
+        "C/7zAlloc.c",
+        "C/CpuArch.c"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C",
+        "ARM Neon Intrinsics (optional)"
+      ]
+    },
+    "C/7zFile.c": {
+      "role": "File System Abstraction Layer / I/O Core",
+      "description": "This file provides a critical platform-independent abstraction layer for basic file system operations within the 7-Zip project. It implements functions for opening, closing, reading, writing, seeking, and querying the length of files. The implementation is conditionally compiled to use Windows API, standard C library functions (like fopen/fread), or POSIX system calls (like open/read/write/lseek), depending on the target environment and build flags. Furthermore, it integrates these low-level file operations into 7-Zip's internal streaming interfaces (ISeqInStream, ISeekInStream, ISeqOutStream), allowing other core components (e.g., compression/decompression) to interact with files through a unified stream model. It handles large I/O operations by processing data in chunks up to 'kChunkSizeMax' (4MB).",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "File_Construct",
+        "InFile_Open",
+        "OutFile_Open",
+        "InFile_OpenW",
+        "OutFile_OpenW",
+        "File_Close",
+        "File_Read",
+        "File_Write",
+        "File_Seek",
+        "File_GetLength",
+        "FileSeqInStream_Read",
+        "FileInStream_Read",
+        "FileInStream_Seek",
+        "FileOutStream_Write",
+        "FileSeqInStream_CreateVTable",
+        "FileInStream_CreateVTable",
+        "FileOutStream_CreateVTab"
+      ],
+      "imports": [
+        "C/7zFile.h",
+        "C/7zTypes.h"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C",
+        "Windows API",
+        "Standard C Library",
+        "POSIX API"
+      ]
+    },
+    "C/LzFind.c": {
+      "role": "LZ Match Finder Core",
+      "description": "This file implements the core dictionary search algorithms essential for LZ-based compression. It manages the input buffer (LzInWindow), handles reading data from the stream, moving data within the buffer, and calculating hash values to find matching sequences (LzFind) within the history window. It defines fundamental data structures and operations for efficient match finding, which is critical for the compression ratio and speed of LZ-based compressors like LZMA.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "MatchFinder_Construct",
+        "MatchFinder_Free",
+        "MatchFinder_SetDefaultSettings",
+        "MatchFinder_ReadBlock",
+        "MatchFinder_MoveBlock",
+        "MatchFinder_NeedMove",
+        "MatchFinder_ReadIfRequired",
+        "MatchFinder_GetHashMask",
+        "MatchFinder_GetHashMask2",
+        "LzInWindow_Create2"
+      ],
+      "imports": [
+        "C/CpuArch.c",
+        "C/LzFind.h",
+        "C/LzHash.h"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C"
+      ]
+    },
+    "C/7zCrc.c": {
+      "role": "CRC32 checksum utility",
+      "description": "This file implements highly optimized CRC32 checksum calculations for data integrity verification within 7-Zip. It provides both software-based lookup table implementations, supporting various table sizes and CPU endianness, and leverages hardware acceleration for CRC32 on ARM architectures when available. The module includes functionality to generate the necessary CRC lookup tables and dynamically selects the most efficient CRC update routine based on CPU features and compilation settings.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "CrcUpdate",
+        "CrcCalc",
+        "CrcGenerateTable",
+        "z7_GetFunc_CrcUpdate"
+      ],
+      "imports": [
+        "C/CpuArch.c"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C",
+        "ARM architecture extensions"
+      ]
+    },
+    "C/Aes.c": {
+      "role": "AES Cryptographic Module",
+      "description": "This file implements the Advanced Encryption Standard (AES) algorithm, providing core encryption and decryption functionalities for various modes such as CBC (Cipher Block Chaining) and CTR (Counter Mode). It includes functions for key schedule generation, AES table pre-computation (S-box, inverse S-box, and MixColumns tables), and the actual block cipher operations. The implementation is optimized with support for hardware acceleration (e.g., AES-NI on x86/AMD64, ARM Crypto Extensions) if the CPU supports it, dynamically dispatching to hardware-accelerated functions when available to improve performance. This is critical for handling password-protected archives within the 7-Zip project.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "AesGenTables",
+        "Aes_SetKey_Enc",
+        "Aes_SetKey_Dec",
+        "AesCbc_Init",
+        "AesCbc_Encode",
+        "AesCbc_Decode",
+        "AesCtr_Code"
+      ],
+      "imports": [
+        "C/CpuArch.c"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C"
+      ]
+    },
+    "CPP/7zip/makefile": {
+      "role": "Top-level build configuration file",
+      "description": "This makefile serves as the main entry point for compiling the 7-Zip application's components. It defines targets to navigate into specific subdirectories, specifically 'UI~' and 'Bundles~', and recursively invokes 'make' within those directories to build their respective components. It orchestrates the compilation process for the main user interface and any bundled utilities.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "all (main build target)",
+        "Rule for $(DIRS) (recursive subdirectory build)"
+      ],
+      "imports": [
+        "CPP/7zip/UI/Console/Main.cpp",
+        "CPP/7zip/UI/FileManager/App.h",
+        "CPP/7zip/UI/FileManager/App.cpp"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "GNU Make"
+      ]
+    },
+    "C/Xz.c": {
+      "role": "Core XZ format utilities and integrity checking",
+      "description": "This file provides fundamental helper functions and core logic for handling the XZ compression format within the 7-Zip project. It includes utilities for writing variable-length integers, managing the lifecycle of XZ stream structures (initialization and freeing), and crucially, implementing the integrity verification mechanisms required by the XZ format. It supports CRC32, CRC64, and SHA256 checksum/hash calculations, offering functions to initialize, update, and finalize these checks for data integrity validation during XZ archive processing.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "Xz_WriteVarInt",
+        "Xz_Construct",
+        "Xz_Free",
+        "XzFlags_GetCheckSize",
+        "XzCheck_Init",
+        "XzCheck_Update",
+        "XzCheck_Final"
+      ],
+      "imports": [
+        "C/7zCrc.c",
+        "C/CpuArch.c",
+        "C/Sha256.c",
+        "CPP/Common/XzCrc64Reg.cpp"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C"
+      ]
+    },
+    "C/Ppmd8Enc.c": {
+      "role": "PPMd8 Compression Encoder",
+      "description": "This file implements the core encoding logic for the PPMd8 (Prediction by Partial Matching, variant I) compression algorithm, which is part of the 7-Zip project. It includes functions for range encoding operations and the main `Ppmd8_EncodeSymbol` function that handles the symbol encoding process, context updates, state transitions, and frequency calculations according to the PPMd8 model. It's a fundamental component for any compression operations using the PPMd8 method.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "Ppmd8_Flush_RangeEnc",
+        "Ppmd8_EncodeSymbol"
+      ],
+      "imports": [
+        "C/7zTypes.h",
+        "C/7zStream.c"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C"
+      ]
+    },
+    "C/Ppmd8Dec.c": {
+      "role": "PPMd8 Decoder Implementation",
+      "description": "This file provides the C implementation for the PPMd8 (Prediction by Partial Matching, version I) data compression decoder. It contains functions to initialize the arithmetic range decoder and to decode individual symbols from a compressed stream. The core logic involves managing statistical contexts, updating frequency models based on decoded symbols, and performing range decoding operations to reconstruct the original data. It is a fundamental component for decompressing data compressed with the PPMd8 algorithm within the 7-Zip project.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "Ppmd8_Init_RangeDec",
+        "Ppmd8_DecodeSymbol"
+      ],
+      "imports": [
+        "C/Ppmd8.h"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C"
+      ]
+    },
+    "C/Ppmd7Enc.c": {
+      "role": "PPMd7 Encoder Implementation",
+      "description": "This file implements the PPMd7 (Prediction by Partial Matching, version H with 7z Range Coder) encoder algorithm. It handles the core logic for compressing data using the PPMd7 method, including initializing and flushing the range encoder, and encoding individual symbols or blocks of symbols. It relies on internal PPMd7 data structures and context management to achieve efficient compression.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "Ppmd7z_Init_RangeEnc",
+        "Ppmd7z_Flush_RangeEnc",
+        "Ppmd7z_EncodeSymbol",
+        "Ppmd7z_EncodeSymbols"
+      ],
+      "imports": [],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C"
+      ]
+    },
+    "C/Ppmd7Dec.c": {
+      "role": "PPMd7 Decoder Implementation",
+      "description": "This file implements the core decoding logic for the PPMd7 (Prediction by Partial Matching, version H with 7-Zip's Range Coder) compression algorithm. It contains functions to initialize the range decoder and to decode individual symbols based on the PPMd model's statistical predictions. This is a critical component for decompressing data compressed with the PPMd7 method within the 7-Zip project.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "Ppmd7z_RangeDec_Init",
+        "Ppmd7z_DecodeSymbol"
+      ],
+      "imports": [
+        "C/Precomp.h",
+        "C/Ppmd7.h"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C"
+      ]
+    },
+    "C/Bcj2Enc.c": {
+      "role": "BCJ2 Encoder Implementation",
+      "description": "This file implements the BCJ2 (Branch CALL/JUMP variant 2) preprocessor encoder for x86 executable code. It is responsible for identifying specific x86 branch instructions (E8, E9, 0F 8x) and converting their 32-bit relative offsets to absolute offsets, which are then written to a separate stream. This preprocessing helps improve the compression ratio for executable files by making the 'main' stream more compressible. The file manages the encoder's state, range encoding logic, and buffering of output streams.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "Bcj2Enc_Init"
+      ],
+      "imports": [
+        "C/CpuArch.c"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C"
+      ]
+    },
+    "C/Bra.c": {
+      "role": "Branch Instruction Converter/Optimizer",
+      "description": "This file implements specialized branch instruction converters for various RISC architectures including ARM64, ARM, PPC, SPARC, ARMT, and IA64. These converters act as filters to modify relative branch offsets in executable code. During compression (encoding), they adjust branch targets to improve compressibility, and during decompression (decoding), they revert these changes to restore the original executable functionality. This is a crucial component for optimizing the compression ratio of executables within the 7-Zip project.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "z7_BranchConv_ARM64_ENC_2",
+        "z7_BranchConv_ARM64_DEC_2",
+        "z7_BranchConv_ARM_ENC_2",
+        "z7_BranchConv_ARM_DEC_2",
+        "z7_BranchConv_PPC_ENC_2",
+        "z7_BranchConv_PPC_DEC_2",
+        "z7_BranchConv_SPARC_ENC_2",
+        "z7_BranchConv_SPARC_DEC_2",
+        "z7_BranchConv_ARMT_ENC_2",
+        "z7_BranchConv_ARMT_DEC_2",
+        "z7_BranchConv_IA64_ENC_2",
+        "z7_BranchConv_IA64_DEC_2"
+      ],
+      "imports": [
+        "C/7zTypes.h",
+        "C/CpuArch.c"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C"
+      ]
+    },
+    "C/Sha1.c": {
+      "role": "SHA-1 Hash Algorithm Implementation",
+      "description": "This file provides the core implementation of the SHA-1 (Secure Hash Algorithm 1) hashing algorithm. It includes functions for initializing the hash state, processing data in blocks, and finalizing the hash to produce a digest. It supports both software-based calculation and, through conditional compilation and function pointers, integrates with hardware-accelerated SHA-1 instructions available on certain CPU architectures (e.g., x86/AMD64 with SHA extensions, ARM with Crypto extensions) for improved performance. It plays a crucial role in data integrity checks within the 7-Zip project.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "Sha1_InitState",
+        "Sha1_Init",
+        "Sha1_UpdateBlocks",
+        "Sha1_Update",
+        "Sha1_Final",
+        "Sha1_SetFunction",
+        "Sha1_PrepareBlock",
+        "Sha1_GetBlockDigest",
+        "Sha1Prepare"
+      ],
+      "imports": [
+        "C/Sha1.h",
+        "C/CpuArch.c",
+        "CPP/Common/Sha1Reg.cpp"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C"
+      ]
+    },
+    "C/Sha256.c": {
+      "role": "Cryptographic hash algorithm implementation",
+      "description": "This file provides the implementation for the SHA-256 (Secure Hash Algorithm 256-bit) cryptographic hash function. It includes functions for initializing the hash state, processing data blocks, and finalizing the hash to produce a digest. The code incorporates platform-specific optimizations, detecting compiler support for hardware-accelerated SHA-256 instructions (e.g., for x86/AMD64 and ARM/ARM64 architectures) to improve performance.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "Sha256_UpdateBlocks",
+        "Sha256_SetFunction",
+        "Sha256_InitState",
+        "Sha256_Init",
+        "Sha256_Update",
+        "Sha256_Final"
+      ],
+      "imports": [
+        "C/Sha256.h",
+        "C/CpuArch.c"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C"
+      ]
+    },
+    "C/Sha512.c": {
+      "role": "Cryptographic Hash Algorithm Implementation",
+      "description": "This file provides the core implementation for the SHA-512 cryptographic hash algorithm, including SHA-512/224 and SHA-512/256 variants. It contains functions for initializing the hash state, processing data blocks (both software-based and potentially hardware-accelerated via compiler/CPU features), and managing the selection of the update block function. Its purpose is to provide strong data integrity checks for the 7-Zip project.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "Sha512_Init",
+        "Sha512_InitState",
+        "Sha512_UpdateBlocks",
+        "Sha512_SetFunction"
+      ],
+      "imports": [],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C"
+      ]
+    },
+    "C/Threads.c": {
+      "role": "Threading utility library (Windows-specific implementation)",
+      "description": "This file provides platform-specific (Windows) implementations for multithreading primitives used throughout the 7-Zip project. It includes functions for creating, managing, and synchronizing threads, as well as handling events and semaphores. Key features include thread creation with optional processor affinity and group assignment (leveraging Windows' Processor Groups API), thread waiting and closing, manual and auto-reset event management, and semaphore creation. It conditionally compiles specific Windows API calls, indicating there might be other platform-specific implementations elsewhere.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "Thread_Create",
+        "Thread_Create_With_Affinity",
+        "Thread_Create_With_Group",
+        "Thread_Wait_Close",
+        "ManualResetEvent_Create",
+        "AutoResetEvent_Create",
+        "Event_Set",
+        "Event_Reset",
+        "Semaphore_Create"
+      ],
+      "imports": [
+        "C/7zTypes.h"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C",
+        "Windows API"
+      ]
+    },
+    "C/MtCoder.c": {
+      "role": "Multi-threaded processing component",
+      "description": "This file implements the core multi-threading logic for parallelizing data processing (coding/decoding) operations within the 7-Zip project. It manages worker threads, synchronizes access to input/output buffers, handles block-based data processing, and provides a framework for integrating specific coding algorithms via callback interfaces. It's responsible for orchestrating parallel execution to improve performance, abstracting the underlying operating system's threading and synchronization primitives.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "MtCoder_Code",
+        "ThreadFunc",
+        "ThreadFunc2",
+        "MtCoder_Construct",
+        "MtCoder_Destruct",
+        "MtCoderThread_CreateAndStart",
+        "MtCoderThread_Destruct",
+        "MtProgressThunk_Progress"
+      ],
+      "imports": [
+        "C/MtCoder.h",
+        "C/Threads.c",
+        "C/7zTypes.h",
+        "C/7zAlloc.c",
+        "C/7zStream.c"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C"
+      ]
+    },
+    "C/7zTypes.h": {
+      "role": "Core data type and interface definitions",
+      "description": "This file serves as a foundational header for the 7-Zip project, defining a wide range of basic data types, error codes, and standard C-style interfaces for stream operations. It handles cross-platform compatibility, particularly between Windows and Unix-like systems, by providing platform-specific definitions for integral types, alignment macros, calling conventions, and error mapping (e.g., HRESULT and WRes). It establishes the fundamental building blocks for I/O and general data handling used across the entire 7-Zip codebase.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "SRes (typedef for operation results)",
+        "WRes (typedef for Windows-like error results)",
+        "Byte, Int16, UInt16, Int32, UInt32, Int64, UInt64 (portable integer types)",
+        "SizeT (portable size type)",
+        "BoolInt (boolean type)",
+        "SZ_OK, SZ_ERROR_... (common error codes)",
+        "MY_ALIGN (alignment macro)",
+        "EXTERN_C_BEGIN/END (C++ compatibility for C code)",
+        "HRESULT_FROM_WIN32 (error code mapping)",
+        "RINOK, RINOK_WRes (macros for checking function results)",
+        "IByteIn (interface for single byte input)",
+        "IByteOut (interface for single byte output)",
+        "ISeqInStream (interface for sequential input streams)",
+        "ISeqOutStream (interface for sequential output streams)",
+        "ISeekInStream (interface for seekable input streams)",
+        "ILookInStream (interface for 'look-ahead' input streams)"
+      ],
+      "imports": [],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C"
+      ]
+    },
+    "C/7zBuf.c": {
+      "role": "Buffer Management Utility",
+      "description": "This file provides core functions for managing a dynamic byte buffer (`CBuf`) used across the 7-Zip project. It includes functions for initializing a buffer, allocating memory of a specified size using a custom allocator interface (`ISzAllocPtr`), and freeing the allocated memory. This ensures consistent and controlled memory handling for various data operations within the compressor/decompressor.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "Buf_Init",
+        "Buf_Create",
+        "Buf_Free"
+      ],
+      "imports": [
+        "C/7zTypes.h"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C"
+      ]
+    },
+    "C/7zStream.c": {
+      "role": "Stream handling utility and core component",
+      "description": "This file implements crucial stream handling functions for 7-Zip, providing abstractions for sequential input streams (ISeqInStream) and lookahead input streams (ILookInStream). It includes functionalities for reading data with support for partial reads, seeking to specific offsets, skipping bytes, and managing internal buffers for efficient lookahead operations. It also defines and initializes virtual tables for various stream implementations (CLookToRead2, CSecToLook, CSecToRead) to support a C-style polymorphic approach to stream processing, which is essential for how 7-Zip reads compressed data from different sources.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "SeqInStream_ReadMax",
+        "SeqInStream_ReadByte",
+        "LookInStream_SeekTo",
+        "LookInStream_LookRead",
+        "LookInStream_Read",
+        "LookToRead2_CreateVTable",
+        "SecToLook_CreateVTable",
+        "SecToRead_CreateVTable"
+      ],
+      "imports": [
+        "C/7zTypes.h"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C"
+      ]
+    },
+    "C/7zAlloc.c": {
+      "role": "Custom memory allocation utility",
+      "description": "This file provides custom memory allocation and deallocation functions, `SzAlloc`, `SzFree`, `SzAllocTemp`, and `SzFreeTemp`, which primarily wrap the standard C library functions `malloc` and `free`. It includes an optional debug mode (`SZ_ALLOC_DEBUG`) to track allocation and deallocation counts and print messages to `stderr`, useful for identifying memory leaks or mismanaged allocations during development. The 'Temp' variants likely provide a separate allocation pool or tracking for temporary buffers, distinguishing them from longer-lived allocations.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "SzAlloc",
+        "SzFree",
+        "SzAllocTemp",
+        "SzFreeTemp"
+      ],
+      "imports": [
+        "Precomp.h",
+        "C/7zAlloc.h"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C"
+      ]
+    },
+    "C/CpuArch.c": {
+      "role": "CPU Architecture Feature Detection Utility",
+      "description": "This file provides functions to detect CPU architecture features using the `cpuid` instruction. It contains highly optimized, platform-specific (x86/AMD64) assembly code and compiler intrinsics (for MSVC, GCC, Clang) to query the CPU for capabilities like instruction set extensions. Its primary purpose is to enable optimized code execution paths in 7-Zip based on the underlying CPU's support for specific features.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "z7_x86_cpuid",
+        "z7_x86_cpuid_subFunc",
+        "z7_x86_cpuid_GetMaxFunc",
+        "x86_cpuid_MACRO",
+        "x86cpuid_Func_1"
+      ],
+      "imports": [],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C",
+        "Assembly"
+      ]
+    },
+    "CPP/Common/XzCrc64Reg.cpp": {
+      "role": "Registers the XZ CRC64 hasher component",
+      "description": "This file implements the `CXzCrc64Hasher` class, which conforms to the `IHasher` interface. It provides the concrete implementation for calculating CRC64 checksums, including initialization (`Init`), updating with data (`Update`), and finalizing the digest (`Final`). The core purpose of this file is to register this specific CRC64 hasher implementation with the 7-Zip framework using the `REGISTER_HASHER` macro. This makes the CRC64 functionality, crucial for integrity checking in XZ archives, dynamically discoverable and usable by other parts of the application.",
+      "importance": "Medium",
+      "lines": null,
+      "exports": [
+        "CXzCrc64Hasher::Init",
+        "CXzCrc64Hasher::Update",
+        "CXzCrc64Hasher::Final",
+        "REGISTER_HASHER (macro for component registration)"
+      ],
+      "imports": [
+        "C/CpuArch.c"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C++",
+        "C"
+      ]
+    },
+    "CPP/Common/Sha512Reg.cpp": {
+      "role": "SHA512 hashing implementation and registration",
+      "description": "This file implements the `CSha512Hasher` class, which provides SHA512 hashing functionality compatible with 7-Zip's codec registration system. It wraps the core C-based SHA512 functions (`Sha512_InitState`, `Sha512_Update`, `Sha512_Final`) from `C/Sha512.h`. The `CSha512Hasher` class implements `IHasher` and `ICompressSetCoderProperties`, allowing it to be integrated as a hash algorithm within the 7-Zip framework. It supports different digest sizes (e.g., SHA384, SHA512) and can be configured to use specific SHA512 algorithm variants. The file also uses macros (`REGISTER_SHA512_HASHER`) to automatically register instances of this hasher for SHA384 and SHA512 with the system.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "CSha512Hasher::CSha512Hasher (constructor)",
+        "CSha512Hasher::Init",
+        "CSha512Hasher::Update",
+        "CSha512Hasher::Final",
+        "CSha512Hasher::GetDigestSize",
+        "CSha512Hasher::SetCoderProperties",
+        "REGISTER_SHA512_HASHER"
+      ],
+      "imports": [
+        "C/Sha512.h"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C++",
+        "C",
+        "COM (Component Object Model-like interfaces)"
+      ]
+    },
+    "CPP/Common/Sha256Reg.cpp": {
+      "role": "SHA256 hasher component implementation and registration",
+      "description": "This file implements the `CSha256Hasher` class, which acts as a wrapper for the C-style SHA256 cryptographic hash functions (`Sha256_InitState`, `Sha256_Update`, `Sha256_Final`). It provides a COM-like interface (`IHasher`, `ICompressSetCoderProperties`) allowing 7-Zip's core system to use SHA256. It also registers this hasher with the 7-Zip codec and property system, making SHA256 available for various operations (e.g., integrity checking). The `SetCoderProperties` method allows selection of optimized SHA256 implementations.",
+      "importance": "Medium",
+      "lines": null,
+      "exports": [
+        "CSha256Hasher::Init()",
+        "CSha256Hasher::Update()",
+        "CSha256Hasher::Final()",
+        "CSha256Hasher::SetCoderProperties()",
+        "REGISTER_HASHER (macro for component registration)"
+      ],
+      "imports": [
+        "C/Sha256.c",
+        "CPP/Common/MyBuffer2.h",
+        "CPP/Common/MyCom.h",
+        "CPP/7zip/Common/RegisterCodec.h"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C++",
+        "7-Zip Internal Framework"
+      ]
+    },
+    "CPP/Common/Sha1Reg.cpp": {
+      "role": "SHA1 Hashing Component Registration",
+      "description": "This file implements a C++ wrapper (`CSha1Hasher`) around the project's core C SHA1 hashing functions. It exposes this functionality through 7-Zip's `IHasher` and `ICompressSetCoderProperties` COM-like interfaces. The primary purpose is to integrate the SHA1 algorithm into the 7-Zip framework by registering it as a usable hasher, allowing for selection of different SHA1 function implementations if optimized versions are available. It handles initialization, updating, and finalization of SHA1 hashes.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "CSha1Hasher::CSha1Hasher()",
+        "CSha1Hasher::Init()",
+        "CSha1Hasher::Update(const void *data, UInt32 size)",
+        "CSha1Hasher::Final(Byte *digest)",
+        "CSha1Hasher::SetCoderProperties(const PROPID *propIDs, const PROPVARIANT *coderProps, UInt32 numProps)",
+        "REGISTER_HASHER (macro usage)"
+      ],
+      "imports": [
+        "C/Sha1.c"
+      ],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C++",
+        "C"
+      ]
+    },
+    "CPP/Windows/Shell.cpp": {
+      "role": "Windows shell integration component",
+      "description": "This file is responsible for interacting with the Windows shell to handle data transfer, specifically for operations like drag-and-drop and clipboard interactions involving file paths or shell items. It provides functions to extract file names and paths from `HDROP` structures and `Shell IDList Array` clipboard formats. It also manages memory allocation for shell-related data using COM's `CoTaskMemFree`. The file is crucial for UI features that require integration with the Windows operating system's file system and shell namespace.",
+      "importance": "High",
+      "lines": null,
+      "exports": [
+        "CItemIDList::Free",
+        "ReadUnicodeStrings",
+        "ReadAnsiStrings",
+        "DataObject_GetData_HDROP_Names",
+        "DataObject_GetData_IDLIST",
+        "DataObject_GetData_HDROP_or_IDLIST_Names"
+      ],
+      "imports": [],
+      "imported_by": [],
+      "module": null,
+      "technologies": [
+        "C++",
+        "Windows API",
+        "COM",
+        "Shell API"
+      ]
+    }
+  },
+  "dependency_graph": {
+    "edges": [],
+    "reverse_index": {}
+  },
+  "modules": [
+    {
+      "id": "ai_archive_user_interface_command_processing",
+      "name": "Archive User Interface & Command Processing",
+      "domain": "unknown",
+      "type": "unknown",
+      "description": "This module provides the entry points and control logic for all user interactions with 7-Zip. It manages both the graphical user interface (GUI) and the command-line interface (CLI), parsing user commands, displaying application state, and orchestrating calls to backend services for archive operations. It handles application lifecycle management, event processing, and presentation logic for the user.",
+      "files": [],
+      "file_count": 3,
+      "technologies": [],
+      "depends_on": []
+    },
+    {
+      "id": "ai_7z_archive_format_management",
+      "name": "7z Archive Format Management",
+      "domain": "unknown",
+      "type": "unknown",
+      "description": "This module specializes in the native 7-Zip archive format. It is responsible for parsing the intricate structure of 7z files, interpreting their headers, metadata (such as file properties, pack streams, and folder definitions), and orchestrating the overall decoding process for 7z-specific data streams. It acts as the primary handler for reading and understanding the 7z container format.",
+      "files": [],
+      "file_count": 2,
+      "technologies": [],
+      "depends_on": []
+    },
+    {
+      "id": "ai_lzma_lzma2_core_compression_engine",
+      "name": "LZMA/LZMA2 Core Compression Engine",
+      "domain": "unknown",
+      "type": "unknown",
+      "description": "This module encapsulates 7-Zip's flagship compression technology, implementing the LZMA (Lempel-Ziv-Markov chain Algorithm) and its advanced variant, LZMA2. It includes the core encoder and decoder logic, along with the fundamental LZ match finder algorithms crucial for achieving high compression ratios by identifying redundant data sequences. This is the primary component for LZMA-based data transformation.",
+      "files": [],
+      "file_count": 7,
+      "technologies": [],
+      "depends_on": []
+    },
+    {
+      "id": "ai_multicodec_data_processing",
+      "name": "Multi-Codec Data Processing",
+      "domain": "unknown",
+      "type": "unknown",
+      "description": "This module provides a pluggable architecture for integrating and utilizing various compression and decompression algorithms beyond 7-Zip's native LZMA/LZMA2. It includes implementations for XZ, Zstandard (Zstd), Prediction by Partial Matching (PPMd7, PPMd8), and specialized pre-processing filters like BCJ2. This enables 7-Zip to support a wide array of archive formats and optimize compression for different data types.",
+      "files": [],
+      "file_count": 9,
+      "technologies": [],
+      "depends_on": []
+    },
+    {
+      "id": "ai_secure_data_handling_integrity_verification",
+      "name": "Secure Data Handling & Integrity Verification",
+      "domain": "unknown",
+      "type": "unknown",
+      "description": "This module provides essential services for ensuring the security and integrity of archived data. It includes the implementation of the Advanced Encryption Standard (AES) for robust password-based encryption and decryption of archive contents, as well as highly optimized CRC32 checksum calculations for verifying data integrity against corruption during storage or transmission.",
+      "files": [],
+      "file_count": 2,
+      "technologies": [],
+      "depends_on": []
+    },
+    {
+      "id": "ai_crossplatform_file_system_stream_i_o",
+      "name": "Cross-Platform File System & Stream I/O",
+      "domain": "unknown",
+      "type": "unknown",
+      "description": "This module offers a crucial abstraction layer for interacting with the underlying file system and managing data streams. It provides a unified, platform-independent API for basic file operations (open, close, read, write, seek, get size), abstracting away OS-specific system calls (Windows API, POSIX). It ensures efficient handling of large files by processing data in chunks and integrating with 7-Zip's internal streaming interfaces.",
+      "files": [],
+      "file_count": 1,
+      "technologies": [],
+      "depends_on": []
+    },
+    {
+      "id": "ai_build_automation_system",
+      "name": "Build Automation System",
+      "domain": "unknown",
+      "type": "unknown",
+      "description": "This module comprises the top-level configuration and scripts for building the entire 7-Zip application. It orchestrates the compilation, linking, and packaging process, defining targets for various components (e.g., UI, bundles) and managing dependencies. It ensures that the project can be consistently built across different environments and platforms.",
+      "files": [],
+      "file_count": 1,
+      "technologies": [],
+      "depends_on": []
+    }
+  ],
+  "architecture": {
+    "pattern": "C++",
+    "summary": "7-Zip's architecture is a classic layered design centered on a highly modular, pluggable codec engine. This approach cleanly separates user interfaces (both CLI and GUI) from the high-level archive management logic, which in turn orchestrates the underlying C-based compression and decompression algorithms. This separation of concerns allows for easy extension with new codecs and provides a robust foundation for its cross-platform capabilities.",
+    "layers": [
+      {
+        "name": "User Interfaces",
+        "description": "Provides the primary entry points for user interaction, including a command-line tool for scripting and automation, and a graphical file manager for interactive use.",
+        "technologies": [
+          "C++",
+          "Windows API",
+          "WinAPI Controls",
+          "POSIX API"
+        ],
+        "key_files": [
+          "Main.cpp",
+          "App.cpp",
+          "App.h"
+        ]
+      },
+      {
+        "name": "Archive Abstraction & Management",
+        "description": "This layer acts as an orchestration engine, providing a unified public interface for interacting with various archive formats. It handles archive parsing, file metadata, and invokes the appropriate codecs for compression or decompression tasks.",
+        "technologies": [
+          "C",
+          "C++",
+          "COM"
+        ],
+        "key_files": [
+          "LzmaLib.h",
+          "LzmaLib.c",
+          "7zArcIn.c"
+        ]
+      },
+      {
+        "name": "Pluggable Codec Engine",
+        "description": "The core of 7-Zip, this layer contains the low-level, performance-critical implementations of various compression, decompression, and filtering algorithms (e.g., LZMA, LZMA2, PPMd). Its pluggable nature allows the application to support a wide and extensible range of formats.",
+        "technologies": [
+          "C"
+        ],
+        "key_files": [
+          "LzmaEnc.c",
+          "LzmaDec.c",
+          "7zDec.c",
+          "Lzma2Enc.c",
+          "Lzma2Dec.c",
+          "XzEnc.c"
+        ]
+      },
+      {
+        "name": "System & File I/O",
+        "description": "The lowest layer, responsible for abstracting platform-specific file system operations. It handles reading from and writing to disk, ensuring the higher-level components can operate on data streams without managing OS-level details.",
+        "technologies": [
+          "Windows API",
+          "POSIX API"
+        ],
+        "key_files": [
+          "Platform-specific file I/O wrappers"
+        ]
+      }
+    ],
+    "diagram_mermaid": "flowchart TD\n\nsubgraph \"1. User Interfaces\"\n        direction TB\n        CLI[Command-Line Interface<br/>(Main.cpp)]\n        GUI[GUI File Manager<br/>(App.cpp)]\n\nend\n\n\nsubgraph \"2. Archive Abstraction & Management\"\n        ArchiveAPI[Archive Management API<br/>(LzmaLib.h, 7zArcIn.c)]\n\nend\n\n\nsubgraph \"3. Pluggable Codec Engine\"\n        Codecs[Compression/Decompression Codecs<br/>(LZMA, LZMA2, PPMd, etc.)]\n\nend\n\n\nsubgraph \"4. System & File I/O\"\n        FSIO[File System Abstraction<br/>(Windows API, POSIX)]\n\nend\nCLI -- User\nCommands  -->  ArchiveAPI\nGUI -- User\nActions  -->  ArchiveAPI\nArchiveAPI -- Selects &\nUses  -->  Codecs\nArchiveAPI -- Reads/Writes\nArchive  -->  FSIO\nCodecs -- Processes Data\nStream  -->  FSIO"
+  },
+  "call_chains": [],
+  "constraints": [],
+  "design_decisions": [],
+  "database": null
+}
